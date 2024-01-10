@@ -1,0 +1,19 @@
+recursive_sum(0, 5)
+|-- recursive_sum(1, 5)
+|   |-- recursive_sum(2, 5)
+|   |   |-- recursive_sum(3, 5)
+|   |   |   |-- recursive_sum(4, 5)
+|   |   |   |   |-- recursive_sum(5, 5)
+|   |   |   |   |   |-- recursive_sum(6, 5) -> returns 0
+|   |   |   |   |   |
+|   |   |   |   |   | returns 5 + 0 = 5
+|   |   |   |   |
+|   |   |   |   | returns 4 + 5 = 9
+|   |   |   |
+|   |   |   | returns 3 + 9 = 12
+|   |   |
+|   |   | returns 2 + 12 = 14
+|   |
+|   | returns 1 + 14 = 15
+|
+| returns 0 + 15 = 15
