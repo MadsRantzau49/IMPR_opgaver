@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <string.h>
+
+// Generic bsort function for bubble sort with a comparison function
+void bsort(void *base, size_t n, size_t size,
+           int (*compar)(const void *, const void *)) {
+    // Convert the base pointer to a char pointer
+    char *arr = (char *)base;
+
+    // Iterate through each element (excluding the last one)
+    for (size_t i = 0; i < n - 1; i++) {
+        // Iterate through the unsorted part of the array
+        for (size_t j = 0; j < n - i - 1; j++) {
+            // Point to the current and next elements
+            char *current = arr + j * size;
+            char *next = arr + (j + 1) * size;
+
+            // Compare elements using the provided comparison function
+            if (compar(current, next) > 0) {
+                // Swap elements using memcpy
+                char temp[size];
+                memcpy(temp, current, size);
+                memcpy(current, next, size);
+                memcpy(next, temp, size);
+            }
+        }
+    }
+}
+
+// Example comparison function for integers
+int compareInt(const void *a, const void *b) {
+    // Cast the generic pointers to int pointers and compare values
+    return (*(int *)a - *(int *)b);
+}
+
+int main() {
+    // Example array of integers
+    int arr[] = {5, 2, 9, 1, 5, 6};
+    size_t arrSize = sizeof(arr) / sizeof(arr[0]);
+    size_t elementSize = sizeof(arr[0]);
+
+    // Sort the array using bsort with the compareInt function
+    bsort(arr, arrSize, elementSize, compareInt);
+
+    // Print the sorted array
+    printf("Sorted array: ");
+    for (size_t i = 0; i < arrSize; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+// Omskriv bubblesort funktionen så den ligner qsort så meget som muligt. Du skal ikke lave om på algoritmen bag bubblesort - det handler parametrene til funktionen. Kald den nye variant af bubblesort for bsort.
+
+// Dette indebærer at bsort skal have fire parametre:
+
+// En pointer til det array der skal sorteres
+// Antallet af elementer i arrayet
+// Byte-størrelsen af hvert element
+// En sammenligningsfunktion (med int returværditype og to generiske pointere som input parametre).
+// Start gerne med at generalisere den eksisterende version af bubblesort med en sammenligningsfunktion.
+
+// Når dette er på plads bedes du overveje hvordan du vil håndtere ombytningen af elementer. (Hint: Overvej at bruge memcpy fra string.h når du skal kopiere array elementer).
+
+// Du kan bruge følgende prototype af funktionen:
+
+//   void bsort(void *base, size_t n, size_t size,
+//              int(*compar)(const void *, const void *))
+// hvor size_t er en passende unsigned integer type (som altid findes i C)

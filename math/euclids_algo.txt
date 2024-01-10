@@ -1,0 +1,72 @@
+BESVARELSE:
+I denne version af programmet, hvor ombytningen af i og j er droppet, risikerer vi, at i er mindre end j ved starten af while-løkken. 
+Dette kan påvirke resultatet af Euclids algoritme.
+
+Lad os undersøge, hvad der sker, når ombytningen ikke udføres. Her er et eksempel:
+
+Indtast a = 12 og b = 8.
+I starten vil i = a være 12 og j = b være 8.
+I første iteration af løkken vil remainder = i % j, så remainder = 12 % 8, og remainder bliver 4.
+Derefter opdateres i til j (12 bliver nu 8), og j opdateres til remainder (8 bliver nu 4).
+I anden iteration vil remainder = i % j, så remainder = 8 % 4, og remainder bliver 0.
+Nu er j 4, men i er 8, og remainder er 0, så løkken slutter.
+Resultatet er, at GCD af 12 og 8 er 4, hvilket er korrekt.
+
+Så selvom vi ikke bytter i og j ved starten, fungerer algoritmen stadig korrekt. Dette skyldes, at når vi udfører % operationen, får vi den korrekte rest i remainder. 
+Ombytning af i og j er en måde at sikre, at i altid er større end eller lig med j ved starten, men det er ikke strengt nødvendigt for selve algoritmens korrekthed.
+
+
+OPGAVE: 
+
+// Opgaver i denne lektion        næste -- Tastaturgenvej: 'n'  Gå til slide, hvor denne opgave er tilknyttet -- Tastaturgenvej: 'u'  
+// Opgave 4.5
+// En simplificeret udgave af Euclids algoritme
+// Denne opgaver tager udgangspunkt i følgende udgave af Euclids algoritme, som vi har studeret nøje i denne lektion:
+
+// /* General condition loop - Euclid again*/
+
+// #include <stdio.h>
+
+// int main(void) {
+//   int i, j, small, large, remainder;
+ 
+//   printf("Enter two positive integers: ");
+//   scanf("%d %d", &i, &j);
+
+//   small = i <= j ? i : j;
+//   large = i <= j ? j : i;
+  
+//   while (small > 0){
+//     remainder = large % small;
+//     large = small;
+//     small = remainder;
+//   }
+
+//   printf("GCD of %d and %d is %d\n\n", i, j, large);
+  
+//   return 0;
+// }   
+// Hvad sker der hvis vi dropper ombytningen af i og j, og således risikerer at small bliver større end large i while-løkken? Her er en sådan version af programmet:
+
+// #include <stdio.h>
+
+// int main(void) {
+//   int a, b, i, j, remainder;
+ 
+//   printf("Enter two non-negative integers: ");
+//   scanf("%d %d", &a, &b);
+
+//   i = a; j = b;  /* We don't know if i > j */  
+//   while (j > 0){
+//     remainder = i % j;
+//     i = j;
+//     j = remainder;
+//   }
+
+//   printf("GCD of %d and %d is %d\n\n", a, b, i);
+  
+//   return 0;
+// }   
+// Virker dette - hvorfor, eller hvorfor ikke?
+
+// Løsningen til denne opgave er pt. ikke frigivet
